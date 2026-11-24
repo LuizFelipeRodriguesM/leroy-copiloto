@@ -10,10 +10,10 @@ import { itemsTotal, shelfProduct, type ShoppingItem, type ShoppingList } from "
 import { formatPrice } from "@/lib/store/catalog";
 import { cn } from "@/lib/utils";
 
-const tabs: { id: Exclude<WorkspaceTab, "checkout">; label: string; icon: typeof ListChecks }[] = [
-  { id: "list", label: "Lista", icon: ListChecks },
-  { id: "route", label: "Rota", icon: MapIcon },
-  { id: "shelf", label: "Qual desses?", icon: ScanSearch },
+const tabs: { id: Exclude<WorkspaceTab, "checkout">; label: string; short: string; icon: typeof ListChecks }[] = [
+  { id: "list", label: "Lista", short: "Lista", icon: ListChecks },
+  { id: "route", label: "Rota", short: "Rota", icon: MapIcon },
+  { id: "shelf", label: "Qual desses?", short: "Qual?", icon: ScanSearch },
 ];
 
 type WorkspaceProps = {
@@ -77,7 +77,8 @@ export function Workspace({
                   )}
                 >
                   <Icon className={cn("size-4", active && "text-brand-deep")} />
-                  {item.label}
+                  <span className="lg:hidden">{item.short}</span>
+                  <span className="hidden lg:inline">{item.label}</span>
                 </button>
               );
             })}
@@ -172,7 +173,8 @@ export function Workspace({
               allPicked ? "bg-brand text-ink" : "bg-ink text-white",
             )}
           >
-            Ir pro caixa
+            <span className="lg:hidden">Caixa</span>
+            <span className="hidden lg:inline">Ir pro caixa</span>
             <span className={cn("grid size-7 place-items-center rounded-full", allPicked ? "bg-ink text-brand" : "bg-brand text-ink")}>
               <ArrowRight className="size-4" />
             </span>

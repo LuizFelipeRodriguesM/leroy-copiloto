@@ -43,7 +43,7 @@ const subscribeToDesktop = (onChange: () => void) => {
 const quickActions: { tab: WorkspaceTab; label: string; icon: typeof ListChecks }[] = [
   { tab: "list", label: "Lista", icon: ListChecks },
   { tab: "route", label: "Rota", icon: MapIcon },
-  { tab: "shelf", label: "Qual desses?", icon: ScanSearch },
+  { tab: "shelf", label: "Qual?", icon: ScanSearch },
 ];
 
 export function CopilotApp() {
