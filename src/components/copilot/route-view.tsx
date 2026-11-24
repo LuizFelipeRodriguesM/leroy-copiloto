@@ -1,9 +1,7 @@
-import { Check, ScanSearch } from "lucide-react";
 import { ItemCard } from "@/components/copilot/item-card";
 import { StoreMap } from "@/components/copilot/store-map";
 import { shelfProduct, type ShoppingItem, type ShoppingList } from "@/lib/copilot/shopping-list";
 import { aisleLabel } from "@/lib/store/layout";
-import { cn } from "@/lib/utils";
 
 type RouteViewProps = {
   list: ShoppingList;
@@ -31,47 +29,22 @@ export function RouteView({ list, picked, onTogglePicked, onScan }: RouteViewPro
         </div>
       </div>
 
-      {list.stops.map((aisle, index) => (
+      {list.stops.map((aisle) => (
         <section key={aisle} className="flex flex-col gap-2.5">
-          <h3 className="flex items-center gap-2.5 px-1 pt-2 text-base font-extrabold tracking-[-0.02em]">
-            <span
-              className={cn(
-                "grid size-7 place-items-center rounded-full text-xs",
-                doneStops.includes(aisle) ? "bg-brand text-ink" : "bg-ink text-brand",
-              )}
-            >
-              {doneStops.includes(aisle) ? <Check className="size-3.5" strokeWidth={3} /> : index + 1}
-            </span>
+          <h3 className="flex items-baseline gap-2.5 px-1 pt-2 text-base font-extrabold tracking-[-0.02em]">
             Corredor {aisle}
             <span className="text-sm font-semibold text-ink-soft">{aisleLabel(aisle)}</span>
           </h3>
           {itemsByAisle(aisle).map((item) => {
             const isPicked = picked.includes(item.product.id);
             return (
-              <ItemCard key={item.product.id} item={item} done={isPicked}>
-                <div className="flex gap-2">
-                  <button
-                    type="button"
-                    onClick={() => onTogglePicked(item.product.id)}
-                    aria-pressed={isPicked}
-                    className={cn(
-                      "flex flex-1 items-center justify-center gap-1.5 rounded-full py-2.5 text-sm font-bold transition-colors",
-                      isPicked ? "bg-brand text-ink" : "bg-[#f4f6f0] text-ink hover:bg-[#ebefe4]",
-                    )}
-                  >
-                    <Check className="size-4" strokeWidth={3} />
-                    {isPicked ? "Peguei" : "Marcar como pego"}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => onScan(item)}
-                    className="flex flex-1 items-center justify-center gap-1.5 rounded-full bg-ink py-2.5 text-sm font-bold text-white"
-                  >
-                    <ScanSearch className="size-4 text-brand" />
-                    Qual desses?
-                  </button>
-                </div>
-              </ItemCard>
+              <ItemCard
+                key={item.product.id}
+                item={item}
+                picked={isPicked}
+                onTogglePicked={() => onTogglePicked(item.product.id)}
+                onScan={() => onScan(item)}
+              />
             );
           })}
         </section>

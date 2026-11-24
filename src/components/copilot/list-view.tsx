@@ -1,13 +1,16 @@
 import { Check, TriangleAlert } from "lucide-react";
 import { ItemCard } from "@/components/copilot/item-card";
-import { itemsTotal, shelfProduct, type ShoppingList } from "@/lib/copilot/shopping-list";
+import { itemsTotal, shelfProduct, type ShoppingItem, type ShoppingList } from "@/lib/copilot/shopping-list";
 import { formatPrice } from "@/lib/store/catalog";
 
 type ListViewProps = {
   list: ShoppingList;
+  picked: string[];
+  onTogglePicked: (productId: string) => void;
+  onScan: (item: ShoppingItem) => void;
 };
 
-export function ListView({ list }: ListViewProps) {
+export function ListView({ list, picked, onTogglePicked, onScan }: ListViewProps) {
   const items = [...list.items].sort(
     (a, b) => list.stops.indexOf(shelfProduct(a).aisle) - list.stops.indexOf(shelfProduct(b).aisle),
   );
@@ -47,9 +50,18 @@ export function ListView({ list }: ListViewProps) {
         </div>
       )}
 
-      {items.map((item) => (
-        <ItemCard key={item.product.id} item={item} showReason />
-      ))}
+      {items.map((item) => {
+        const isPicked = picked.includes(item.product.id);
+        return (
+          <ItemCard
+            key={item.product.id}
+            item={item}
+            picked={isPicked}
+            onTogglePicked={() => onTogglePicked(item.product.id)}
+            onScan={() => onScan(item)}
+          />
+        );
+      })}
 
       <p className="flex items-center gap-1.5 px-1 text-sm font-bold text-brand-deep">
         <Check className="size-4" strokeWidth={3} />

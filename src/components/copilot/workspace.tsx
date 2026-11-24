@@ -51,6 +51,11 @@ export function Workspace({
   const allPicked = Boolean(list) && pickedCount === list?.items.length;
   const cartTotal = list ? itemsTotal(list.items.filter((item) => picked.includes(item.product.id))) : 0;
 
+  const scanItem = (item: ShoppingItem) => {
+    onShelfItem(item.product.id);
+    onTab("shelf");
+  };
+
   return (
     <div className="flex h-full flex-col bg-white">
       <div className="flex items-center gap-2 border-b border-line px-3 py-2.5">
@@ -94,17 +99,11 @@ export function Workspace({
       </div>
 
       <div className="flex-1 overflow-y-auto px-4 py-5 sm:px-5">
-        {list && tab === "list" && <ListView list={list} />}
+        {list && tab === "list" && (
+          <ListView list={list} picked={picked} onTogglePicked={onTogglePicked} onScan={scanItem} />
+        )}
         {list && tab === "route" && (
-          <RouteView
-            list={list}
-            picked={picked}
-            onTogglePicked={onTogglePicked}
-            onScan={(item) => {
-              onShelfItem(item.product.id);
-              onTab("shelf");
-            }}
-          />
+          <RouteView list={list} picked={picked} onTogglePicked={onTogglePicked} onScan={scanItem} />
         )}
         {list && tab === "checkout" && <CheckoutView list={list} picked={picked} onRestart={onRestart} />}
         {tab === "shelf" && (
