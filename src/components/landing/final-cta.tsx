@@ -25,10 +25,10 @@ export function FinalCta() {
           <div className="relative mt-9 flex flex-wrap items-center justify-center gap-3">
             <Link
               href="/app"
-              className="chunky press inline-flex items-center gap-3 rounded-full bg-ink py-3 pl-6 pr-3 text-base font-bold text-white"
+              className="chunky press inline-flex items-center gap-3 rounded-full bg-white py-3 pl-6 pr-3 text-base font-bold text-ink"
             >
               Falar com o Charles
-              <span className="grid size-9 place-items-center rounded-full bg-brand text-ink">
+              <span className="grid size-9 place-items-center rounded-full bg-ink text-brand">
                 <ArrowRight className="size-5" />
               </span>
             </Link>
