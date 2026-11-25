@@ -28,7 +28,7 @@ export function FinalCta() {
               className="chunky press inline-flex items-center gap-3 rounded-full bg-white py-3 pl-6 pr-3 text-base font-bold text-ink"
             >
               Falar com o Charles
-              <span className="grid size-9 place-items-center rounded-full bg-ink text-brand">
+              <span className="grid size-9 place-items-center rounded-full bg-ink text-white">
                 <ArrowRight className="size-5" />
               </span>
             </Link>
