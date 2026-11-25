@@ -344,6 +344,10 @@
   animation: panel-in 0.5s var(--smooth) both;
 }
 
+.rail-in {
+  animation: rail-in 0.4s var(--smooth) both;
+}
+
 .sheet-up {
   animation: sheet-up 0.42s var(--smooth) both;
 }
@@ -361,6 +365,17 @@
   from {
     opacity: 0;
     transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes rail-in {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
   }
   to {
     opacity: 1;

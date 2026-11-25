@@ -13,9 +13,10 @@ const fitScale = () => Math.min(1, Math.max(MIN_SCALE, (window.innerHeight - RES
 
 type DevicePreviewProps = {
   path: string;
+  compact?: boolean;
 };
 
-export function DevicePreview({ path }: DevicePreviewProps) {
+export function DevicePreview({ path, compact = false }: DevicePreviewProps) {
   const insideFrame = useClientValue(isInsideFrame, false);
   const [open, setOpen] = useState(false);
   const [scale, setScale] = useState(1);
@@ -47,12 +48,23 @@ export function DevicePreview({ path }: DevicePreviewProps) {
           setScale(fitScale());
           setOpen(true);
         }}
-        className="flex w-full items-center gap-2.5 rounded-2xl bg-ink py-2 pl-2 pr-4 text-sm font-bold text-white transition-transform duration-300 hover:-translate-y-0.5"
+        aria-label={compact ? "Ver no celular" : undefined}
+        className={
+          compact
+            ? "grid size-10 place-items-center rounded-full bg-ink text-brand transition-transform duration-300 hover:-translate-y-0.5"
+            : "flex w-full items-center gap-2.5 rounded-2xl bg-ink py-2 pl-2 pr-4 text-sm font-bold text-white transition-transform duration-300 hover:-translate-y-0.5"
+        }
       >
-        <span className="grid size-8 place-items-center rounded-full bg-brand text-ink">
+        {compact ? (
           <Smartphone className="size-4" />
-        </span>
-        Ver no celular
+        ) : (
+          <>
+            <span className="grid size-8 place-items-center rounded-full bg-brand text-ink">
+              <Smartphone className="size-4" />
+            </span>
+            Ver no celular
+          </>
+        )}
       </button>
 
       {open && (
