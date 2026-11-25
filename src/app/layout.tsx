@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import type { ReactNode } from "react";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
@@ -18,7 +19,7 @@ export const viewport: Viewport = {
   themeColor: "#9cd167",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="pt-BR" className={`${jakarta.variable} h-full`}>
       <body className="flex min-h-full flex-col">{children}</body>
