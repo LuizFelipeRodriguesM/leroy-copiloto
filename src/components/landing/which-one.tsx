@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { Check, ScanSearch, Timer, X } from "lucide-react";
 import { Reveal } from "@/components/landing/reveal";
 import { boxStyle, labelInside } from "@/lib/shelf-box";
@@ -9,7 +9,6 @@ import { shelfDemos } from "@/lib/shelf-demos";
 import { cn } from "@/lib/utils";
 
 type ScanPhase = "scanning" | "lookalikes" | "found";
-
 
 const stats = [
   { value: "12/12", label: "acertos em fotos reais de prateleira" },
@@ -23,6 +22,7 @@ export function WhichOne() {
   const [visible, setVisible] = useState(false);
   const [userPicked, setUserPicked] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const chipsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -53,6 +53,13 @@ export function WhichOne() {
     return () => timers.forEach(clearTimeout);
   }, [demoIndex, visible, userPicked]);
 
+  useEffect(() => {
+    const row = chipsRef.current;
+    const chip = row?.children[demoIndex];
+    if (!row || !(chip instanceof HTMLElement) || row.scrollWidth <= row.clientWidth) return;
+    row.scrollTo({ left: chip.offsetLeft - (row.clientWidth - chip.offsetWidth) / 2, behavior: "smooth" });
+  }, [demoIndex]);
+
   const pickDemo = (index: number) => {
     setUserPicked(true);
     setPhase("scanning");
@@ -66,43 +73,48 @@ export function WhichOne() {
     <section
       id="qual-desses"
       ref={sectionRef}
-      className="relative scroll-mt-20 overflow-hidden bg-[linear-gradient(180deg,#f1f8e8_0%,#fafbf5_100%)] py-28 sm:py-40"
+      className="relative h-svh min-h-[620px] overflow-hidden bg-[linear-gradient(180deg,#f1f8e8_0%,#fafbf5_100%)] pb-6 pt-24 lg:h-auto lg:min-h-0 lg:scroll-mt-20 lg:py-40"
     >
-      <div className="relative mx-auto grid max-w-6xl gap-14 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-        <div>
+      <div className="relative mx-auto flex h-full max-w-6xl flex-col gap-4 px-4 sm:px-6 lg:grid lg:h-auto lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-14">
+        <div className="shrink-0">
           <Reveal>
-            <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-brand-deep">O pulo do gato</p>
-            <h2 className="mt-4 text-[clamp(2.8rem,6vw,5rem)] font-extrabold leading-[0.92] tracking-[-0.05em]">
+            <p className="hidden text-xs font-extrabold uppercase tracking-[0.2em] text-brand-deep lg:block">O pulo do gato</p>
+            <h2 className="text-[clamp(2.8rem,6vw,5rem)] font-extrabold leading-[0.92] tracking-[-0.05em] lg:mt-4">
               Qual desses?
             </h2>
-            <p className="mt-3 text-[clamp(1.4rem,2.4vw,2rem)] font-bold leading-tight tracking-[-0.03em] text-brand-deep">
+            <p className="mt-1.5 text-[clamp(1.4rem,2.4vw,2rem)] font-bold leading-tight tracking-[-0.03em] text-brand-deep lg:mt-3">
               O Charles circula o certo.
             </p>
-            <p className="mt-6 max-w-lg text-lg leading-relaxed text-ink-soft">
+            <p className="mt-6 hidden max-w-lg text-lg leading-relaxed text-ink-soft lg:block">
               Na frente de 40 itens quase iguais, essa é a pergunta que hoje só o vendedor responde. Aponta a câmera: o
               Charles lê rótulo, medida e etiqueta, marca o produto certo e explica por que os vizinhos não servem.
             </p>
           </Reveal>
 
-          <Reveal delay={120} className="mt-8 flex flex-wrap gap-2">
-            {shelfDemos.map((item, index) => (
-              <button
-                key={item.id}
-                type="button"
-                onClick={() => pickDemo(index)}
-                className={cn(
-                  "rounded-full px-4 py-2.5 text-sm font-bold transition-all duration-300",
-                  index === demoIndex
-                    ? "bg-ink text-white shadow-[0_10px_20px_-10px_rgba(18,23,14,.6)]"
-                    : "bg-white text-ink-soft ring-1 ring-ink/10 hover:text-ink",
-                )}
-              >
-                {item.tab}
-              </button>
-            ))}
+          <Reveal delay={120} className="mt-2 lg:mt-8">
+            <div
+              ref={chipsRef}
+              className="relative -mx-4 -mb-4 flex gap-2 overflow-x-auto px-4 pb-6 pt-2 [scrollbar-width:none] sm:-mx-6 sm:px-6 lg:m-0 lg:flex-wrap lg:overflow-visible lg:p-0"
+            >
+              {shelfDemos.map((item, index) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => pickDemo(index)}
+                  className={cn(
+                    "shrink-0 rounded-full px-4 py-2.5 text-sm font-bold transition-all duration-300",
+                    index === demoIndex
+                      ? "bg-ink text-white shadow-[0_10px_20px_-10px_rgba(18,23,14,.6)]"
+                      : "bg-white text-ink-soft ring-1 ring-ink/10 hover:text-ink",
+                  )}
+                >
+                  {item.tab}
+                </button>
+              ))}
+            </div>
           </Reveal>
 
-          <Reveal delay={200} className="mt-12 grid grid-cols-3 gap-6 border-t border-ink/10 pt-8">
+          <Reveal delay={200} className="mt-12 hidden grid-cols-3 gap-6 border-t border-ink/10 pt-8 lg:grid">
             {stats.map((stat) => (
               <div key={stat.value}>
                 <p className="text-[clamp(1.6rem,2.6vw,2.2rem)] font-extrabold tracking-[-0.04em] text-ink">{stat.value}</p>
@@ -110,24 +122,27 @@ export function WhichOne() {
               </div>
             ))}
           </Reveal>
-          <p className="mt-6 text-xs leading-relaxed text-ink-soft/70">
+          <p className="mt-6 hidden text-xs leading-relaxed text-ink-soft/70 lg:block">
             Teste feito em 2026-11-22 com o Gemini 3.5 Flash e fotos públicas do Wikimedia Commons, conferido caixa por
             caixa.
           </p>
         </div>
 
-        <Reveal delay={150}>
-          <div className="relative mx-auto" style={{ maxWidth: portrait ? "min(460px, 100%)" : "100%" }}>
+        <Reveal delay={150} className="min-h-0 flex-1 [container-type:size] lg:flex-none lg:[container-type:normal]">
+          <div
+            className="relative mx-auto flex h-full flex-col justify-center lg:block lg:h-auto"
+            style={{ maxWidth: portrait ? "min(460px, 100%)" : "100%" }}
+          >
             <div
               key={demo.id}
-              className="bubble-in relative mb-4 ml-auto w-fit max-w-[90%] rounded-2xl rounded-br-[6px] bg-ink px-4 py-3 text-[15px] font-semibold leading-snug text-white"
+              className="bubble-in relative mb-3 ml-auto w-fit max-w-[90%] shrink-0 rounded-2xl rounded-br-[6px] bg-ink px-4 py-2.5 text-[13px] font-semibold leading-snug text-white lg:mb-4 lg:py-3 lg:text-[15px]"
             >
               {demo.question}
             </div>
 
             <div
-              className="relative overflow-hidden rounded-[28px] shadow-[0_40px_80px_-40px_rgba(18,23,14,.55)]"
-              style={{ aspectRatio: `${demo.width} / ${demo.height}` }}
+              className="relative mx-auto w-[min(100cqw,calc((100cqh-200px)*var(--ratio)))] shrink-0 overflow-hidden rounded-[28px] shadow-[0_40px_80px_-40px_rgba(18,23,14,.55)] lg:w-full"
+              style={{ aspectRatio: `${demo.width} / ${demo.height}`, "--ratio": demo.width / demo.height } as CSSProperties}
             >
               <Image
                 key={demo.photo}
@@ -190,7 +205,7 @@ export function WhichOne() {
 
             <div
               className={cn(
-                "relative -mt-10 mx-4 rounded-3xl bg-white p-5 text-ink shadow-[0_30px_60px_-30px_rgba(18,23,14,.45)] ring-1 ring-ink/5 transition-all duration-500 sm:mx-8",
+                "relative -mt-10 mx-4 shrink-0 rounded-3xl bg-white p-4 text-ink lg:p-5 shadow-[0_30px_60px_-30px_rgba(18,23,14,.45)] ring-1 ring-ink/5 transition-all duration-500 sm:mx-8",
                 phase === "found" ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0",
               )}
             >
@@ -205,7 +220,7 @@ export function WhichOne() {
                 </span>
               </div>
               <p className="mt-2 text-sm leading-relaxed text-ink-soft">{demo.reason}</p>
-              <ul className="mt-3 space-y-1.5 border-t border-line pt-3">
+              <ul className="mt-3 hidden space-y-1.5 border-t border-line pt-3 lg:block">
                 {demo.lookalikes.map((lookalike) => (
                   <li key={lookalike.name} className="flex gap-2 text-sm leading-snug">
                     <X className="mt-0.5 size-4 shrink-0 text-signal" strokeWidth={3} />
