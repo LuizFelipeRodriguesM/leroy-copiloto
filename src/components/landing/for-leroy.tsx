@@ -1,9 +1,7 @@
-import { Check, QrCode, ScanLine, ShoppingCart } from "lucide-react";
+import { QrCode, ScanLine } from "lucide-react";
 import { AppQrCode } from "@/components/landing/app-qr-code";
 import { BenefitBento } from "@/components/landing/benefit-bento";
 import { Reveal } from "@/components/landing/reveal";
-
-const projectItems = ["Tinta acrílica 3,6 L", "Rolo de lã 23 cm", "Bandeja de pintura", "Fita crepe 48 mm", "Lixa 150"];
 
 export function ForLeroy() {
   return (
@@ -16,40 +14,6 @@ export function ForLeroy() {
             <br />
             <span className="text-ink/35">Melhor pra loja.</span>
           </h2>
-        </Reveal>
-
-        <Reveal className="mt-12">
-          <article className="grid gap-6 overflow-hidden rounded-[32px] bg-[linear-gradient(150deg,#b4dd8a_0%,#9cd167_55%,#8cc456_100%)] p-6 sm:p-8 md:grid-cols-2 md:items-center md:gap-10">
-            <div>
-              <span className="grid size-10 place-items-center rounded-xl bg-white/60 text-brand-ink">
-                <ShoppingCart className="size-5" />
-              </span>
-              <h3 className="mt-4 text-[clamp(1.7rem,3vw,2.5rem)] font-extrabold leading-[0.98] tracking-[-0.045em]">
-                Carrinho mais cheio.
-              </h3>
-              <p className="mt-3 max-w-md text-base leading-relaxed text-brand-ink">
-                O Charles pensa no projeto inteiro, não num produto. Quem vai pintar a sala sai com tudo o que a pintura
-                pede, e não volta amanhã atrás da fita crepe.
-              </p>
-            </div>
-            <div className="rounded-3xl bg-white px-5 py-4 shadow-[0_30px_60px_-30px_rgba(36,64,12,.6)]">
-              <p className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-brand-deep">Projeto: pintar a sala</p>
-              <div className="mt-2 divide-y divide-line">
-                {projectItems.map((item, index) => (
-                  <Reveal
-                    key={item}
-                    delay={200 + index * 110}
-                    className="flex items-center justify-between py-2 text-[15px] font-semibold"
-                  >
-                    {item}
-                    <span className="grid size-5 place-items-center rounded-full bg-brand-soft text-brand-ink">
-                      <Check className="size-3" strokeWidth={3} />
-                    </span>
-                  </Reveal>
-                ))}
-              </div>
-            </div>
-          </article>
         </Reveal>
 
         <BenefitBento />
