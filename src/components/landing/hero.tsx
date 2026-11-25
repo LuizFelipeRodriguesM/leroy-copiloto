@@ -185,7 +185,7 @@ export function Hero() {
             className="group flex items-center gap-2.5 rounded-full bg-brand py-3 pl-6 pr-3 text-base font-bold text-ink shadow-[0_14px_30px_-12px_rgba(79,138,28,.75)] transition-transform duration-300 hover:-translate-y-0.5"
           >
             Falar com o Charles
-            <span className="grid size-8 place-items-center rounded-full bg-ink text-brand transition-transform duration-300 group-hover:translate-x-0.5">
+            <span className="grid size-8 place-items-center rounded-full bg-white text-ink transition-transform duration-300 group-hover:translate-x-0.5">
               <ArrowRight className="size-4" />
             </span>
           </Link>
