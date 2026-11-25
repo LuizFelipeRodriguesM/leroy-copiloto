@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ArrowDown, ArrowRight, Hand } from "lucide-react";
+import { ArrowDown, ArrowRight, Hand, Smartphone } from "lucide-react";
+import { DevicePreview } from "@/components/copilot/device-preview";
 import { CharlesEmbed, type CharlesMood, type CharlesPoke } from "@/components/landing/charles-embed";
 import { cn } from "@/lib/utils";
 
@@ -189,6 +190,15 @@ export function Hero() {
               <ArrowRight className="size-4" />
             </span>
           </Link>
+          <DevicePreview
+            path="/app"
+            className="hidden items-center gap-2.5 rounded-full bg-white py-3 pl-3 pr-6 text-base font-bold text-ink ring-1 ring-line transition-transform duration-300 hover:-translate-y-0.5 lg:flex"
+          >
+            <span className="grid size-8 place-items-center rounded-full bg-ink text-white">
+              <Smartphone className="size-4" />
+            </span>
+            Ver no celular
+          </DevicePreview>
           <a
             href="#como-funciona"
             className="flex items-center gap-2 rounded-full px-5 py-3.5 text-base font-semibold text-ink-soft transition-colors hover:text-ink"

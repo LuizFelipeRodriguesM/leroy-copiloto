@@ -3,7 +3,7 @@
 import { useState, type ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Check, PanelLeftClose, PanelLeftOpen, Plus, Store } from "lucide-react";
+import { ArrowUpRight, Check, PanelLeftClose, PanelLeftOpen, Plus, Smartphone, Store } from "lucide-react";
 import { DevicePreview } from "@/components/copilot/device-preview";
 import { catalog } from "@/lib/store/catalog";
 import { aisleBlocks } from "@/lib/store/layout";
@@ -103,7 +103,13 @@ export function Sidebar({ steps, title, onNewProblem }: SidebarProps) {
               <RailTip>{storeNote}</RailTip>
             </span>
             <span className="group relative">
-              <DevicePreview path="/app" compact />
+              <DevicePreview
+                path="/app"
+                label="Ver no celular"
+                className="grid size-10 place-items-center rounded-full bg-ink text-brand transition-transform duration-300 hover:-translate-y-0.5"
+              >
+                <Smartphone className="size-4" />
+              </DevicePreview>
               <RailTip>Ver no celular</RailTip>
             </span>
             <Link
@@ -188,7 +194,15 @@ export function Sidebar({ steps, title, onNewProblem }: SidebarProps) {
               </p>
               <p className="mt-1 text-xs leading-snug text-ink-soft">{storeNote}</p>
             </div>
-            <DevicePreview path="/app" />
+            <DevicePreview
+              path="/app"
+              className="flex w-full items-center gap-2.5 rounded-2xl bg-ink py-2 pl-2 pr-4 text-sm font-bold text-white transition-transform duration-300 hover:-translate-y-0.5"
+            >
+              <span className="grid size-8 place-items-center rounded-full bg-brand text-ink">
+                <Smartphone className="size-4" />
+              </span>
+              Ver no celular
+            </DevicePreview>
             <Link
               href="/"
               className="flex items-center justify-between rounded-xl px-3 py-2 text-xs font-bold text-ink-soft transition-colors hover:bg-white hover:text-ink"
