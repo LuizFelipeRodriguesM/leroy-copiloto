@@ -42,10 +42,11 @@ const steps: Step[] = [
 
 const HERO_SETTLE_MS = 1800;
 const DESKTOP_RESERVED = 140;
-const MOBILE_RESERVED = 330;
+const MOBILE_RESERVED = 310;
 
 export function HowItWorks() {
   const sectionRef = useRef<HTMLElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
   const [phoneScale, setPhoneScale] = useState(1);
   const [embedMounted, setEmbedMounted] = useState(false);
@@ -61,7 +62,8 @@ export function HowItWorks() {
       const next = Math.min(1, Math.max(0, -rect.top / Math.max(1, travel)));
       setProgress(Math.round(next * 1000) / 1000);
       const reserved = window.matchMedia("(min-width: 1024px)").matches ? DESKTOP_RESERVED : MOBILE_RESERVED;
-      const scale = Math.min(1, Math.max(0.55, (window.innerHeight - reserved) / PHONE_HEIGHT));
+      const stageHeight = stageRef.current?.clientHeight ?? window.innerHeight;
+      const scale = Math.min(1, Math.max(0.55, (stageHeight - reserved) / PHONE_HEIGHT));
       setPhoneScale(Math.round(scale * 100) / 100);
     };
     const schedule = () => {
@@ -116,10 +118,10 @@ export function HowItWorks() {
 
   return (
     <section id="como-funciona" ref={sectionRef} className="relative h-[400svh] bg-paper">
-      <div className="sticky top-0 h-svh overflow-hidden">
-        <div className="mx-auto grid h-full max-w-6xl grid-rows-[auto_1fr] gap-5 px-4 pb-4 pt-20 sm:px-6 lg:grid-cols-[1fr_auto] lg:grid-rows-1 lg:items-center lg:gap-16 lg:py-0">
+      <div ref={stageRef} className="sticky top-0 h-svh overflow-hidden">
+        <div className="mx-auto grid h-full max-w-6xl grid-rows-[auto_1fr] gap-5 px-4 pb-4 pt-24 sm:px-6 lg:grid-cols-[1fr_auto] lg:grid-rows-1 lg:items-center lg:gap-16 lg:py-0">
           <div>
-            <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-brand-deep">Como funciona</p>
+            <p className="hidden text-xs font-extrabold uppercase tracking-[0.2em] text-brand-deep lg:block">Como funciona</p>
             <h2 className="mt-3 hidden text-[clamp(2.4rem,4.2vw,3.6rem)] font-extrabold leading-[0.98] tracking-[-0.045em] lg:block">
               Você conta.
               <br />
@@ -174,7 +176,7 @@ export function HowItWorks() {
             </ol>
 
             <div className="lg:hidden">
-              <div className="relative mt-2 h-[150px]">
+              <div className="relative h-[120px]">
                 {steps.map((item, index) => (
                   <div
                     key={item.title}
@@ -188,10 +190,7 @@ export function HowItWorks() {
                           : "translate-y-3 opacity-0",
                     )}
                   >
-                    <p className="text-xs font-bold tabular-nums text-ink-soft">
-                      <span className="text-brand-deep">{String(index + 1).padStart(2, "0")}</span> / 04
-                    </p>
-                    <h3 className="mt-1 text-[22px] font-extrabold tracking-[-0.03em]">{item.title}</h3>
+                    <h3 className="text-[22px] font-extrabold tracking-[-0.03em]">{item.title}</h3>
                     <p className="mt-1.5 text-[15px] leading-snug text-ink-soft">{item.text}</p>
                   </div>
                 ))}
