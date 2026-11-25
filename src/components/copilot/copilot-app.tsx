@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
-import { ListChecks, Map as MapIcon, PanelRightOpen, Plus, ScanSearch } from "lucide-react";
+import { ListChecks, PanelRightOpen, Plus, ScanSearch } from "lucide-react";
 import { Composer } from "@/components/copilot/composer";
 import { EmptyState } from "@/components/copilot/empty-state";
 import {
@@ -41,9 +41,8 @@ const subscribeToDesktop = (onChange: () => void) => {
 };
 
 const quickActions: { tab: WorkspaceTab; label: string; icon: typeof ListChecks }[] = [
-  { tab: "list", label: "Lista", icon: ListChecks },
-  { tab: "route", label: "Rota", icon: MapIcon },
-  { tab: "shelf", label: "Qual?", icon: ScanSearch },
+  { tab: "list", label: "Lista e rota", icon: ListChecks },
+  { tab: "shelf", label: "Qual desses?", icon: ScanSearch },
 ];
 
 export function CopilotApp() {
@@ -267,7 +266,7 @@ export function CopilotApp() {
           <div className="shrink-0 border-t border-line/70 bg-paper/90 px-4 pb-4 pt-3 backdrop-blur-xl sm:px-6">
             <div className="mx-auto flex max-w-[720px] flex-col gap-2.5">
               {list && !isDesktop && (
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-2 gap-2">
                   {quickActions.map((action) => {
                     const Icon = action.icon;
                     return (

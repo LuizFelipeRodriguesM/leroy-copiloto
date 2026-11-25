@@ -8,9 +8,8 @@ Enterprise Challenge 2026 (FIAP, Engenharia de Software), Grupo 115.
 
 1. **Conta o problema** (texto ou foto) em `/app`.
 2. **Perguntas geradas na hora:** a IA escolhe de 1 a 3 perguntas e o componente de cada uma (cartões com ícone, escolha curta, número com unidade, várias escolhas ou texto). Os componentes já existem no código; a IA só escolhe quais usar e o conteúdo.
-3. **Lista pronta:** só com produtos do catálogo da loja, com a conta da quantidade, os itens que o cliente costuma esquecer e o substituto quando o produto acabou.
-4. **Rota na loja:** mapa com as paradas na ordem mais curta da entrada ao caixa.
-5. **Qual desses?:** foto da prateleira; a IA marca o produto certo e explica por que os parecidos não servem.
+3. **Lista e rota numa tela só:** só com produtos do catálogo da loja, com a conta da quantidade, os itens que o cliente costuma esquecer e o substituto quando o produto acabou. O mapa no topo mostra as paradas na ordem mais curta da entrada ao caixa, e os itens vêm agrupados por corredor, cada um com o botão "Qual desses?".
+4. **Qual desses?:** foto da prateleira; a IA marca o produto certo e explica por que os parecidos não servem.
 
 ## Como rodar
 

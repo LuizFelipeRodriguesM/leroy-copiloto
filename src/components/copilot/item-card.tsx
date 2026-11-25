@@ -82,6 +82,17 @@ export function ItemCard({ item, picked, onTogglePicked, onScan }: ItemCardProps
         </button>
       </div>
 
+      <div className="-mt-1 ml-[52px] pb-3 pr-3">
+        <button
+          type="button"
+          onClick={onScan}
+          className="flex items-center gap-1.5 rounded-full bg-ink py-1.5 pl-2.5 pr-3.5 text-xs font-bold text-white transition-transform active:scale-95"
+        >
+          <ScanSearch className="size-3.5 text-brand" />
+          Qual desses?
+        </button>
+      </div>
+
       <div
         className={cn(
           "grid transition-[grid-template-rows] duration-300 ease-out",
@@ -100,14 +111,6 @@ export function ItemCard({ item, picked, onTogglePicked, onScan }: ItemCardProps
                 Sem estoque: {item.product.name}. Leve este, que faz o mesmo serviço.
               </p>
             )}
-            <button
-              type="button"
-              onClick={onScan}
-              className="flex items-center justify-center gap-1.5 rounded-full bg-ink py-2.5 text-sm font-bold text-white"
-            >
-              <ScanSearch className="size-4 text-brand" />
-              Qual desses? Aponta a câmera
-            </button>
           </div>
         </div>
       </div>

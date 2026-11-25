@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState, type ReactNode } from "react";
-import { ArrowRight, ListChecks, Map as MapIcon, RotateCcw, ScanSearch, Sparkles } from "lucide-react";
+import { ArrowRight, ListChecks, RotateCcw, ScanSearch, Sparkles } from "lucide-react";
 import { QuestionForm, isAnswered, type AnswerMap, type AnswerValue } from "@/components/copilot/question-form";
 import { CharlesEmbed, type CharlesMood } from "@/components/landing/charles-embed";
 import { cn } from "@/lib/utils";
@@ -10,7 +10,7 @@ import type { QuestionsResult } from "@/lib/copilot/schemas";
 import { itemsTotal, type ShoppingList } from "@/lib/copilot/shopping-list";
 import { formatPrice } from "@/lib/store/catalog";
 
-export type WorkspaceTab = "list" | "route" | "shelf" | "checkout";
+export type WorkspaceTab = "list" | "shelf" | "checkout";
 
 const LINE_MS = 2200;
 
@@ -203,19 +203,11 @@ export function ListCard({ list, onOpen }: ListCardProps) {
         </span>
         <span className="rounded-full bg-ink px-3.5 py-1.5 text-xs font-bold text-white">Abrir</span>
       </button>
-      <div className="grid grid-cols-2 border-t border-line text-sm font-bold">
-        <button
-          type="button"
-          onClick={() => onOpen("route")}
-          className="flex items-center justify-center gap-2 py-3 transition-colors hover:bg-paper/70"
-        >
-          <MapIcon className="size-4 text-brand-deep" />
-          Ver rota
-        </button>
+      <div className="border-t border-line text-sm font-bold">
         <button
           type="button"
           onClick={() => onOpen("shelf")}
-          className="flex items-center justify-center gap-2 border-l border-line py-3 transition-colors hover:bg-paper/70"
+          className="flex w-full items-center justify-center gap-2 py-3 transition-colors hover:bg-paper/70"
         >
           <ScanSearch className="size-4 text-brand-deep" />
           Qual desses?

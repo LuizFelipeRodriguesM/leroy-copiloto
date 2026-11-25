@@ -1,19 +1,17 @@
 "use client";
 
-import { ArrowRight, ListChecks, Map as MapIcon, ScanSearch, X } from "lucide-react";
+import { ArrowRight, ListChecks, ScanSearch, X } from "lucide-react";
 import { CheckoutView } from "@/components/copilot/checkout-view";
 import { ListView } from "@/components/copilot/list-view";
 import type { WorkspaceTab } from "@/components/copilot/messages";
-import { RouteView } from "@/components/copilot/route-view";
 import { ShelfView, type ShelfTarget } from "@/components/copilot/shelf-view";
 import { itemsTotal, shelfProduct, type ShoppingItem, type ShoppingList } from "@/lib/copilot/shopping-list";
 import { formatPrice } from "@/lib/store/catalog";
 import { cn } from "@/lib/utils";
 
-const tabs: { id: Exclude<WorkspaceTab, "checkout">; label: string; short: string; icon: typeof ListChecks }[] = [
-  { id: "list", label: "Lista", short: "Lista", icon: ListChecks },
-  { id: "route", label: "Rota", short: "Rota", icon: MapIcon },
-  { id: "shelf", label: "Qual desses?", short: "Qual?", icon: ScanSearch },
+const tabs: { id: Exclude<WorkspaceTab, "checkout">; label: string; icon: typeof ListChecks }[] = [
+  { id: "list", label: "Lista e rota", icon: ListChecks },
+  { id: "shelf", label: "Qual desses?", icon: ScanSearch },
 ];
 
 type WorkspaceProps = {
@@ -77,8 +75,7 @@ export function Workspace({
                   )}
                 >
                   <Icon className={cn("size-4", active && "text-brand-deep")} />
-                  <span className="lg:hidden">{item.short}</span>
-                  <span className="hidden lg:inline">{item.label}</span>
+                  {item.label}
                 </button>
               );
             })}
@@ -102,9 +99,6 @@ export function Workspace({
       <div className="flex-1 overflow-y-auto px-4 py-5 sm:px-5">
         {list && tab === "list" && (
           <ListView list={list} picked={picked} onTogglePicked={onTogglePicked} onScan={scanItem} />
-        )}
-        {list && tab === "route" && (
-          <RouteView list={list} picked={picked} onTogglePicked={onTogglePicked} onScan={scanItem} />
         )}
         {list && tab === "checkout" && <CheckoutView list={list} picked={picked} onRestart={onRestart} />}
         {tab === "shelf" && (
@@ -144,7 +138,7 @@ export function Workspace({
               problem={problem}
               onPicked={(productId) => {
                 if (!picked.includes(productId)) onTogglePicked(productId);
-                onTab("route");
+                onTab("list");
               }}
             />
           </div>
