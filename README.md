@@ -2,7 +2,7 @@
 
 Assistente de IA para a jornada do cliente dentro da loja física da Leroy Merlin. O cliente conta o problema do jeito dele, o Charles faz as perguntas que um vendedor faria, monta a lista com quantidade, corredor e estoque, traça a rota na loja e, na frente da prateleira, circula na foto o produto certo.
 
-Enterprise Challenge 2026 (FIAP, Engenharia de Software), Grupo 115.
+Enterprise Challenge 2026 (FIAP, Engenharia de Software).
 
 ## Fluxo
 

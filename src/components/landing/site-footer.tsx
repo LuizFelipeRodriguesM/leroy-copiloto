@@ -25,7 +25,6 @@ export function SiteFooter() {
           <ul className="mt-4 space-y-2 text-sm text-ink-soft">
             <li>Challenge Leroy Merlin 2026</li>
             <li>FIAP · Engenharia de Software</li>
-            <li>Grupo 115</li>
           </ul>
         </div>
         <div>
